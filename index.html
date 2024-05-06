@@ -33,23 +33,20 @@
         }
 
         function showForm(title, authors) {
-            const form = document.createElement('form');
-            form.id = 'purchaseForm';
-            form.onsubmit = (event) => submitForm(event, title, authors);
-
-            form.innerHTML = `
-                <label for="name">Имя:</label><br>
-                <input type="text" id="name"><br>
-                <label for="email">Почта:</label><br>
-                <input type="text" id="email"><br>
-                <label for="phone">Телефон:</label><br>
-                <input type="text" id="phone"><br>
-                <label for="address">Адрес:</label><br>
-                <input type="text" id="address"><br><br>
-                <button type="submit">Отправить</button>
+            const form = `
+                <form id="purchaseForm" onsubmit="submitForm(event, '${title}', '${authors}')">
+                    <label for="name">Имя:</label><br>
+                    <input type="text" id="name" required><br>
+                    <label for="email">Почта:</label><br>
+                    <input type="email" id="email" required><br>
+                    <label for="phone">Телефон:</label><br>
+                    <input type="text" id="phone" required><br>
+                    <label for="address">Адрес:</label><br>
+                    <input type="text" id="address" required><br><br>
+                    <button type="submit">Отправить</button>
+                </form>
             `;
-
-            bookList.appendChild(form);
+            document.getElementById('bookList').insertAdjacentHTML('afterend', form);
         }
 
         async function submitForm(event, title, authors) {
@@ -59,9 +56,9 @@
             const phone = document.getElementById('phone').value;
             const address = document.getElementById('address').value;
             const bookInfo = `Книга: ${title}, Автор(ы): ${authors}`;
+            
             const formData = { name, email, phone, address, bookInfo };
             
-            // Отправка данных на Google Sheets
             await fetch('https://script.google.com/macros/s/AKfycbyG6FVKl2PgkHL4-3UgZuCHqD5Nj-DbsWD_NmSgsqY/exec', {
                 method: 'POST',
                 headers: {
