@@ -58,8 +58,15 @@
             const bookInfo = `Книга: ${title}, Автор(ы): ${authors}`;
             const formData = { name, email, phone, address, bookInfo };
             
-            // Здесь должен быть код для отправки данных на Google Sheets через Google Sheets API
-            console.log(formData);
+            // Отправка данных на Google Sheets
+            await fetch('https://script.google.com/macros/s/AKfycbyG6FVKl2PgkHL4-3UgZuCHqD5Nj-DbsWD_NmSgsqY/exec', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
             alert('Заказ успешно отправлен!');
             document.getElementById('purchaseForm').reset();
         }
