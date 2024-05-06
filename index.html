@@ -33,20 +33,23 @@
         }
 
         function showForm(title, authors) {
-            const form = `
-                <form id="purchaseForm" onsubmit="submitForm(event, '${title}', '${authors}')">
-                    <label for="name">Имя:</label><br>
-                    <input type="text" id="name" required><br>
-                    <label for="email">Почта:</label><br>
-                    <input type="email" id="email" required><br>
-                    <label for="phone">Телефон:</label><br>
-                    <input type="tel" id="phone" required><br>
-                    <label for="address">Адрес:</label><br>
-                    <input type="text" id="address" required><br><br>
-                    <button type="submit">Отправить</button>
-                </form>
+            const form = document.createElement('form');
+            form.id = 'purchaseForm';
+            form.onsubmit = (event) => submitForm(event, title, authors);
+
+            form.innerHTML = `
+                <label for="name">Имя:</label><br>
+                <input type="text" id="name" required><br>
+                <label for="email">Почта:</label><br>
+                <input type="email" id="email" required><br>
+                <label for="phone">Телефон:</label><br>
+                <input type="tel" id="phone" required><br>
+                <label for="address">Адрес:</label><br>
+                <input type="text" id="address" required><br><br>
+                <button type="submit">Отправить</button>
             `;
-            document.getElementById('bookList').insertAdjacentHTML('afterend', form);
+
+            bookList.appendChild(form);
         }
 
         async function submitForm(event, title, authors) {
